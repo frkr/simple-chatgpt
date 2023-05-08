@@ -2,7 +2,15 @@ import {fetchWithTimeout, postBearer} from "../util-js/util";
 
 const url = "https://api.openai.com/v1/chat/completions";
 
-export async function chatgpt(userId: string, messages: Array<MessageChat>, apikey: string): Promise<MessageChat | null> {
+export function gptslice(conversas: Array<MessageChat>) {
+    let simpleCount = JSON.stringify(conversas, null, '').length;
+    while (simpleCount > (4096 - 700)) { // Max tokens 600 - Max 4096
+        conversas.shift();
+        simpleCount = JSON.stringify(conversas, null, '').length;
+    }
+}
+
+export async function gptchat(userId: string, messages: Array<MessageChat>, apikey: string): Promise<MessageChat | null> {
     try {
         let content = {
             "model": "gpt-3.5-turbo",
