@@ -1,6 +1,7 @@
 import {fetchWithTimeout, postBearer} from "../util-js/util";
 
-const url = "https://api.openai.com/v1/chat/completions";
+export const urlCompletions = "https://api.openai.com/v1/chat/completions";
+export const urlEdit = "https://api.openai.com/v1/images/edits";
 
 export function gptslice(conversas: Array<MessageChat>) {
     let simpleCount = JSON.stringify(conversas, null, '').length;
@@ -20,7 +21,7 @@ export async function gptchat(userId: string, messages: Array<MessageChat>, apik
             "messages": messages,
         }
 
-        let response = await fetchWithTimeout(fetch(url, postBearer(content, apikey)));
+        let response = await fetchWithTimeout(fetch(urlCompletions, postBearer(content, apikey)));
 
         if (response !== null) {
             let data: ChatCompletions = await response.json();
