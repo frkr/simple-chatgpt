@@ -4,10 +4,10 @@ export const urlCompletions = "https://api.openai.com/v1/chat/completions";
 export const urlEdit = "https://api.openai.com/v1/images/edits";
 
 export function gptslice(conversas: Array<MessageChat>) {
-    let simpleCount = JSON.stringify(conversas, null, '').length;
+    let simpleCount = JSON.stringify(conversas).length;
     while (simpleCount > (4096 - 700)) { // Max tokens 600 - Max 4096
         conversas.shift();
-        simpleCount = JSON.stringify(conversas, null, '').length;
+        simpleCount = JSON.stringify(conversas).length;
     }
 }
 
