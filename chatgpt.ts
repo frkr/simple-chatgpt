@@ -21,7 +21,9 @@ export async function gptchat(userId: string, messages: Array<MessageChat>, apik
             "messages": messages,
         }
 
-        let response = await fetchWithTimeout(fetch(urlCompletions, postBearer(content, apikey)));
+        let response = await fetchWithTimeout(fetch(urlCompletions, postBearer(content, apikey)), 300000);
+
+        console.log('response', JSON.stringify(response, null, 2));
 
         if (response !== null) {
             let data: ChatCompletions = await response.json();
