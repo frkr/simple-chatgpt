@@ -5,7 +5,8 @@ export const urlEdit = "https://api.openai.com/v1/images/edits";
 
 export function gptslice(conversas: Array<MessageChat>) {
     let simpleCount = JSON.stringify(conversas).length;
-    while (simpleCount > (4096 - 700)) { // Max tokens 600 - Max 4096
+    // TODO O real limite é de 16kb menos o max_tokens de 4kb.
+    while (simpleCount > (15360)) { // 15kb
         conversas.shift();
         simpleCount = JSON.stringify(conversas).length;
     }
@@ -14,9 +15,9 @@ export function gptslice(conversas: Array<MessageChat>) {
 export async function gptchat(userId: string, messages: Array<MessageChat>, apikey: string): Promise<MessageChat | null> {
     try {
         let content = {
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo-16k-0613",
             "top_p": 0.1,
-            "max_tokens": 600,
+            "max_tokens": 4096, // 4kb
             "user": userId,
             "messages": messages,
         }
