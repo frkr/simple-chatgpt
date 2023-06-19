@@ -19,8 +19,9 @@ interface ChoicesEntity {
     index: number;
 }
 
+type ChatRole = "system" | "user" | "assistant";
 interface MessageChat {
-    role: "system" | "user" | "assistant";
+    role: ChatRole;
     content: string;
 }
 
