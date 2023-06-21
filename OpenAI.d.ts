@@ -4,7 +4,7 @@ interface ChatCompletions {
     created: number;
     model: string;
     usage: Usage;
-    choices?: (ChoicesEntity)[] | null;
+    choices?: (ChoicesEntity)[];
 }
 
 interface Usage {
