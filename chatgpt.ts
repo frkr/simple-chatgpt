@@ -13,7 +13,7 @@ export function gptslice(conversas: Array<MessageChat>) {
 export async function chat(userId: string, messages: Array<MessageChat>, apikey: string, max = 4096): Promise<MessageChat | null> {
     try {
         let content = {
-            "model": "gpt-4-32k",
+            "model": "gpt-3.5-turbo-16k-0613",
             "top_p": 0.1,
             "max_tokens": max,
             "user": userId,
