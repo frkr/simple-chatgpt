@@ -24,7 +24,6 @@ type ChatRole = "system" | "user" | "assistant";
 interface MessageChat {
     role: ChatRole;
     content: string;
-    name?: string;
 }
 
 interface ChatCompletionsResponse {
