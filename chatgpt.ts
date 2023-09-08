@@ -21,10 +21,10 @@ export async function chat(userId: string, messages: Array<MessageChat>, apikey:
 	return call(content, apikey);
 }
 
-export async function call(content: ChatCompletionsRequest, apikey: string): Promise<MessageChat | null> {
+export async function call(content: ChatCompletionsRequest, apikey: string, timeout = 300000): Promise<MessageChat | null> {
 	try {
 
-		let response = await fetchWithTimeout(fetch(urlCompletions, postBearer(content, apikey)), 300000);
+		let response = await fetchWithTimeout(fetch(urlCompletions, postBearer(content, apikey)), timeout);
 
 		if (response !== null) {
 			let data: ChatCompletions = await response.json();

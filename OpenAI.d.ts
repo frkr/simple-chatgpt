@@ -31,7 +31,7 @@ interface ChatCompletionsResponse {
 	response: string;
 }
 
-type OpenAIModels = 'gpt-4' | 'gpt-3.5-turbo-16k' | 'gpt-4-32k'
+type OpenAIModels = 'gpt-3.5-turbo' | 'gpt-4' | 'gpt-3.5-turbo-16k' | 'gpt-4-32k'
 
 interface ChatCompletionsRequest {
 	model?: OpenAIModels;
