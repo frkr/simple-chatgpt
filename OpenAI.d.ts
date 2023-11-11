@@ -21,6 +21,17 @@ interface ChoicesEntity {
 
 type ChatRole = 'system' | 'user' | 'assistant';
 
+interface AudioMsg {
+	model: 'tts-1' | 'tts-1-hd';
+	input: string;
+	voice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
+	response_format?: 'mp3' | 'opus' | 'aac' | 'flac';
+}
+
+interface Transcription {
+	text: string;
+}
+
 interface MessageChat {
 	role: ChatRole;
 	content: string;

@@ -1,6 +1,8 @@
 import { fetchWithTimeout, postBearer } from '../util-js/util';
 
 export const urlCompletions = 'https://api.openai.com/v1/chat/completions';
+export const urlTranscr = 'https://api.openai.com/v1/audio/transcriptions';
+export const urlAudio = 'https://api.openai.com/v1/audio/speech';
 
 export function gptslice(conversas: Array<MessageChat>, limit = 16384) {
 	let simpleCount = JSON.stringify(conversas).length;
@@ -21,6 +23,19 @@ export async function chat(userId: string, messages: Array<MessageChat>, apikey:
 	return call(content, apikey);
 }
 
+export async function speech(msg: AudioMsg, apikey: string): Promise<Blob | null> {
+	try {
+		let response = await fetchWithTimeout(fetch(urlAudio, postBearer(msg, apikey)), 300000);
+
+		if (response !== null) {
+			return await response.blob();
+		}
+	} catch (e) {
+		console.error('chatgpt.audio', e);
+	}
+	return null;
+}
+
 export async function call(content: ChatCompletionsRequest, apikey: string, timeout = 300000): Promise<MessageChat | null> {
 	try {
 
@@ -37,4 +52,19 @@ export async function call(content: ChatCompletionsRequest, apikey: string, time
 		console.error('chatgpt', e);
 	}
 	return null;
+}
+
+export async function transcribe(file: any, apikey: string): Promise<Transcription> {
+
+	let forma = new FormData();
+	forma.append('file', file, 'audio.webm');
+	forma.append('model', 'whisper-1');
+	return (await fetch(urlTranscr, {
+		method: 'POST',
+		headers: {
+			'Authorization': 'Bearer ' + apikey,
+		},
+		body: forma,
+	})).json();
+
 }
