@@ -23,17 +23,12 @@ export async function chat(userId: string, messages: Array<MessageChat>, apikey:
 	return call(content, apikey);
 }
 
-export async function speech(msg: AudioMsg, apikey: string): Promise<Blob | null> {
-	try {
-		let response = await fetchWithTimeout(fetch(urlAudio, postBearer(msg, apikey)), 300000);
+export async function speech(msg: AudioMsg, apikey: string): Promise<Blob> {
 
-		if (response !== null) {
-			return await response.blob();
-		}
-	} catch (e) {
-		console.error('chatgpt.audio', e);
-	}
-	return null;
+	let response = await fetch(urlAudio, postBearer(msg, apikey));
+
+	return await response.blob();
+
 }
 
 export async function call(content: ChatCompletionsRequest, apikey: string, timeout = 300000): Promise<MessageChat | null> {
