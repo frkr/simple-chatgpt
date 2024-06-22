@@ -3,7 +3,7 @@
 - [Types](OpenAI.d.ts)
 - [Services](chatgpt.ts)
 
-## Put in your project
+## Install
 
 ```shell
 cd src

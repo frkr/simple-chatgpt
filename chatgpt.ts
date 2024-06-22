@@ -25,7 +25,7 @@ export async function chat(userId: string, messages: Array<MessageChat>, apikey:
 
 export async function speech(msg: AudioMsg, apikey: string): Promise<Blob> {
 
-	let response = await fetch(urlAudio, postBearer(msg, apikey));
+	let response = await fetch(urlAudio, postBearer({data:msg, apikey}));
 
 	return await response.blob();
 
@@ -34,7 +34,7 @@ export async function speech(msg: AudioMsg, apikey: string): Promise<Blob> {
 export async function call(content: ChatCompletionsRequest, apikey: string, timeout = 300000): Promise<MessageChat | null> {
 	try {
 
-		let response = await fetchWithTimeout(fetch(urlCompletions, postBearer(content, apikey)), timeout);
+		let response = await fetchWithTimeout(fetch(urlCompletions, postBearer({data:content, apikey})), timeout);
 
 		if (response !== null) {
 			let data: ChatCompletions = await response.json();
