@@ -56,11 +56,13 @@ export const GPTMessageRequestImpl = {
 
 export type GPTMessageRequest = typeof GPTMessageRequestImpl
 
-export const GPTRunRequestImpl = {
-    assistant_id: 'asst_abc123',
+export type GPTRunRequest = {
+    assistant_id: string,
+    model?: string,
+    instructions?: string,
+    additional_instructions?: string,
+    temperature?: number,
 }
-
-export type GPTRunRequest = typeof GPTMessageRequestImpl
 
 export const GPTRunImpl = {
     "id": "run_abc123",
@@ -104,7 +106,7 @@ export interface GPTMessageList {
     object: 'list',
     data: GPTMessage[],
     has_more: false,
-    last_id:'id'
+    last_id: 'id'
 }
 
 //endregion
@@ -113,37 +115,37 @@ const headersBeta = {
     'OpenAI-Beta': 'assistants=v2'
 }
 
-export async function gpthread( apikey: string, thread_id: string ):Promise<GPThread> {
+export async function gpthread(apikey: string, thread_id: string): Promise<GPThread> {
     return (
         await fetch(
-        `https://api.openai.com/v1/threads/${thread_id}`,
-        postBearer(
-            {
-                headers: headersBeta,
-                apikey,
-            }
+            `https://api.openai.com/v1/threads/${thread_id}`,
+            postBearer(
+                {
+                    headers: headersBeta,
+                    apikey,
+                }
+            )
         )
-    )
     ).json()
 }
 
-export async function gptcreateThread(apikey: string ):Promise<GPThread> {
+export async function gptcreateThread(apikey: string): Promise<GPThread> {
     return (
-    await fetch(
-        'https://api.openai.com/v1/threads',
-        postBearer(
-            {
-                headers: headersBeta,
-                apikey,
-                method: 'POST',
-                data: {}
-            }
+        await fetch(
+            'https://api.openai.com/v1/threads',
+            postBearer(
+                {
+                    headers: headersBeta,
+                    apikey,
+                    method: 'POST',
+                    data: {}
+                }
+            )
         )
-    )
     ).json()
 }
 
-export async function gptcreateMessageOnThread(apikey:string,thread_id:string, message: GPTMessageRequest):Promise<GPTMessage> {
+export async function gptcreateMessageOnThread(apikey: string, thread_id: string, message: GPTMessageRequest): Promise<GPTMessage> {
     return (
         await fetch(
             `https://api.openai.com/v1/threads/${thread_id}/messages`,
@@ -151,14 +153,19 @@ export async function gptcreateMessageOnThread(apikey:string,thread_id:string, m
                 {
                     headers: headersBeta,
                     apikey,
-                    data:message
+                    data: message
                 }
             )
         )
     ).json()
 }
 
-export async function gptcreateRun(apikey:string,thread_id:string,assistant_id:string) :Promise<GPTRun>{
+export async function gptcreateRun(
+    apikey: string,
+    thread_id: string,
+    content: GPTRunRequest
+): Promise<GPTRun> {
+    // FIXME fazer bench mark temperature: 0.7
     return (
         await fetch(
             `https://api.openai.com/v1/threads/${thread_id}/runs`,
@@ -166,14 +173,14 @@ export async function gptcreateRun(apikey:string,thread_id:string,assistant_id:s
                 {
                     headers: headersBeta,
                     apikey,
-                    data: {assistant_id}
+                    data: content
                 }
             )
         )
     ).json()
 }
 
-export async function gptrun(apikey:string,thread_id:string,run_id:string) :Promise<GPTRun> {
+export async function gptrun(apikey: string, thread_id: string, run_id: string): Promise<GPTRun> {
     return (
         await fetch(
             `https://api.openai.com/v1/threads/${thread_id}/runs/${run_id}`,
@@ -187,10 +194,10 @@ export async function gptrun(apikey:string,thread_id:string,run_id:string) :Prom
     ).json()
 }
 
-export async function gptmessages(apikey:string,thread_id:string,after:string=null) :Promise<GPTMessageList> {
+export async function gptmessages(apikey: string, thread_id: string, after: string = null): Promise<GPTMessageList> {
     return (
         await fetch(
-            `https://api.openai.com/v1/threads/${thread_id}/messages?order=asc${ after ? `&after=${after}` : '' }`,
+            `https://api.openai.com/v1/threads/${thread_id}/messages?order=asc${after ? `&after=${after}` : ''}`,
             postBearer(
                 {
                     headers: headersBeta,
