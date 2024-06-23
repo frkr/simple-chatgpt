@@ -166,7 +166,10 @@ export async function gptcreateRun(apikey:string,thread_id:string,assistant_id:s
                 {
                     headers: headersBeta,
                     apikey,
-                    data: {assistant_id}
+                    data: {
+                        assistant_id,
+                        temperature: 0.7
+                    }
                 }
             )
         )
