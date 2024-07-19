@@ -42,7 +42,14 @@ interface ChatCompletionsResponse {
     response: string;
 }
 
-type OpenAIModels = 'gpt-4o'|'gpt-4-turbo'|'gpt-3.5-turbo' | 'gpt-4' | 'gpt-3.5-turbo-16k' | 'gpt-4-32k' | 'gpt-4-turbo-preview';
+type OpenAIModels =
+    'gpt-4o'
+    | 'gpt-4-turbo'
+    | 'gpt-3.5-turbo'
+    | 'gpt-4'
+    | 'gpt-3.5-turbo-16k'
+    | 'gpt-4-32k'
+    | 'gpt-4-turbo-preview';
 
 interface ChatCompletionsRequest {
     model?: OpenAIModels | string;
@@ -57,4 +64,34 @@ interface ChatCompletionsRequest {
 
     user?: string;
     messages?: MessageChat[];
+}
+
+type OpenAIFilePurpose =
+    "assistants"
+    | "assistants_output"
+    | "batch"
+    | "batch_output"
+    | "fine-tune"
+    | "fine-tune-results"
+    | "vision"
+
+interface OpenAIFile {
+    id?: string;
+    object: "file";
+    bytes: number;
+    created_at: number;
+    filename: string;
+    purpose: OpenAIFilePurpose
+}
+
+interface OpenAIFileList {
+    data: OpenAIFile[]
+    "object": "list"
+    has_more?: boolean
+}
+
+interface OpenAIFileReq {
+    file: any,
+    filename: string,
+    purpose: OpenAIFilePurpose
 }
