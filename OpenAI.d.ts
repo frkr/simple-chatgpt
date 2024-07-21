@@ -66,3 +66,33 @@ interface ChatCompletionsRequest {
     user?: string;
     messages?: MessageChat[];
 }
+
+type OpenAIFilePurpose =
+    "assistants"
+    | "assistants_output"
+    | "batch"
+    | "batch_output"
+    | "fine-tune"
+    | "fine-tune-results"
+    | "vision"
+
+interface OpenAIFile {
+    id?: string;
+    object: "file";
+    bytes: number;
+    created_at: number;
+    filename: string;
+    purpose: OpenAIFilePurpose
+}
+
+interface OpenAIFileList {
+    data: OpenAIFile[]
+    "object": "list"
+    has_more?: boolean
+}
+
+interface OpenAIFileReq {
+    file: any,
+    filename: string,
+    purpose: OpenAIFilePurpose
+}
