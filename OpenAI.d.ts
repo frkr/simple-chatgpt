@@ -42,7 +42,15 @@ interface ChatCompletionsResponse {
     response: string;
 }
 
-type OpenAIModels = 'gpt-4o'|'gpt-4-turbo'|'gpt-3.5-turbo' | 'gpt-4' | 'gpt-3.5-turbo-16k' | 'gpt-4-32k' | 'gpt-4-turbo-preview';
+type OpenAIModels =
+    'gpt-4o-mini'
+    | 'gpt-4o'
+    | 'gpt-4-turbo'
+    | 'gpt-3.5-turbo'
+    | 'gpt-4'
+    | 'gpt-3.5-turbo-16k'
+    | 'gpt-4-32k'
+    | 'gpt-4-turbo-preview';
 
 interface ChatCompletionsRequest {
     model?: OpenAIModels | string;
