@@ -40,7 +40,7 @@ export async function gptFileUpload({file, filename, purpose}: OpenAIFileReq, ap
 
 }
 
-export async function chat(userId: string, messages: Array<MessageChat>, apikey: string, model = 'gpt-3.5-turbo-16k'): Promise<MessageChat | null> {
+export async function chat(userId: string, messages: Array<MessageChat>, apikey: string, model: OpenAIModels = 'gpt-4o-mini'): Promise<MessageChat | null> {
     let content = {
         'model': model,
         'top_p': 0.1,
