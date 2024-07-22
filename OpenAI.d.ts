@@ -96,3 +96,21 @@ interface OpenAIFileReq {
     filename: string,
     purpose: OpenAIFilePurpose
 }
+
+interface OpenAIVector {
+    id: string
+    object: "vector_store"
+    created_at: number
+    usage_bytes: number
+    last_active_at: number // TODO verificar pois tem um erro na documentacao
+    name: string
+    status: "expired" | "in_progress" | "completed" | string
+    file_counts: {
+        in_progress: number
+        completed: number
+        canceled: number
+        failed: number
+        total: number
+    }
+    metadata: any
+}
