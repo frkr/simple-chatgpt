@@ -20,3 +20,34 @@ export async function gptCreateVector(name: string, apikey: string): Promise<Ope
         )
     ).json()
 }
+
+export async function gptCreateVectorFile(vector_store_id: string, file_id: string, apikey: string): Promise<any> {
+    return (
+        await fetch(
+            `${urlVector}/${vector_store_id}/files`,
+            postBearer(
+                {
+                    headers: headersBeta,
+                    apikey,
+                    method: 'POST',
+                    data: {file_id}
+                }
+            )
+        )
+    ).json()
+}
+
+export async function gptCreateVectorFileDelete(vector_store_id: string, file_id: string, apikey: string): Promise<any> {
+    return (
+        await fetch(
+            `${urlVector}/${vector_store_id}/files/${file_id}`,
+            postBearer(
+                {
+                    headers: headersBeta,
+                    apikey,
+                    method: 'DELETE',
+                }
+            )
+        )
+    ).json()
+}

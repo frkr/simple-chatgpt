@@ -165,7 +165,7 @@ export async function gptcreateRun(
     thread_id: string,
     content: GPTRunRequest
 ): Promise<GPTRun> {
-    // FIXME fazer bench mark temperature: 0.7
+    // TODO fazer bench mark temperature: 0.7
     return (
         await fetch(
             `https://api.openai.com/v1/threads/${thread_id}/runs`,
