@@ -114,3 +114,68 @@ interface OpenAIVector {
     }
     metadata: any
 }
+
+export interface OpenAIAssistReq {
+    model: OpenAIModels | string,
+    name?: string,
+    description?: string,
+    instructions?: string,
+    tools?: {
+        type: "code_interpreter" | "file_search" | "function"
+        file_search?: {
+            max_num_results: number,
+        }
+        function?: {
+            description: string,
+            name: string,
+            parameters: any,
+        }
+    }[],
+    tool_resources?: {
+        code_interpreter?: {
+            file_ids: string[],
+        }
+        file_search?: {
+            vector_store_ids: string[]
+        }
+    }
+    metadata?: any,
+    top_p?: number,
+    temperature?: number,
+    response_format?: "auto" | any // TODO verificar em function
+}
+
+export interface OpenAIAssist {
+    id: string,
+    object: "assistant",
+    created_at: number,
+    name?: string,
+    description?: string,
+    model: OpenAIModels | string,
+    instructions?: string,
+    tools?: {
+        type: "code_interpreter" | "file_search" | "function"
+        file_search?: {
+            max_num_results: number,
+        }
+        function?: {
+            description: string,
+            name: string,
+            parameters: any,
+        }
+    }[],
+    tool_resources?: {
+        code_interpreter?: {
+            file_ids: string[],
+        }
+        file_search?: {
+            vector_store_ids: string[]
+        }
+    }
+    metadata?: any,
+    top_p?: number,
+    temperature?: number,
+    response_format: "auto" | any // TODO verificar em function
+
+
+}

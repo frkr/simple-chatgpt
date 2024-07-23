@@ -5,6 +5,7 @@ export const urlTranscr = 'https://api.openai.com/v1/audio/transcriptions';
 export const urlAudio = 'https://api.openai.com/v1/audio/speech';
 export const urlFile = 'https://api.openai.com/v1/files';
 export const urlVector = 'https://api.openai.com/v1/vector_stores';
+export const urlAssist = 'https://api.openai.com/v1/assistants';
 
 export function gptslice(conversas: Array<MessageChat>, limit = 16384) {
     let simpleCount = JSON.stringify(conversas).length;
