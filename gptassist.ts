@@ -53,7 +53,7 @@ export async function gptAssistDelete(assistant_id: string, apikey: string): Pro
 }
 
 
-export async function gptAssistAddVS(assistant_id: string, assist: OpenAIAssistReq, apikey: string): Promise<OpenAIAssist> {
+export async function gptAssistVS(assistant_id: string, assist: OpenAIAssistReq, apikey: string): Promise<OpenAIAssist> {
     return (
         await fetch(
             `${urlAssist}/${assistant_id}`,
