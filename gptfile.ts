@@ -1,5 +1,6 @@
 import {postBearer} from "../util-js/util";
 import {urlFile} from "./chatgpt";
+import {OpenAIFile, OpenAIFileList, OpenAIFileReq} from "./OpenAI";
 
 export async function gptFileList(apikey: string): Promise<OpenAIFileList> {
     return (await fetch(urlFile, postBearer({apikey}))).json()

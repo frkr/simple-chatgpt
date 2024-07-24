@@ -1,5 +1,6 @@
 import {postBearer} from "../util-js/util";
 import {urlVector} from "./chatgpt";
+import {OpenAIVector} from "./OpenAI";
 
 const headersBeta = {
     'OpenAI-Beta': 'assistants=v2'
@@ -41,6 +42,21 @@ export async function gptCreateVectorFileDelete(vector_store_id: string, file_id
     return (
         await fetch(
             `${urlVector}/${vector_store_id}/files/${file_id}`,
+            postBearer(
+                {
+                    headers: headersBeta,
+                    apikey,
+                    method: 'DELETE',
+                }
+            )
+        )
+    ).json()
+}
+
+export async function gptVectorDelete(vector_store_id: string, apikey: string): Promise<any> {
+    return (
+        await fetch(
+            `${urlVector}/${vector_store_id}`,
             postBearer(
                 {
                     headers: headersBeta,
