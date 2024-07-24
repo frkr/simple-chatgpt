@@ -37,6 +37,21 @@ export async function gptAssistGet(assistant_id: string, apikey: string): Promis
     ).json()
 }
 
+export async function gptAssistDelete(assistant_id: string, apikey: string): Promise<OpenAIAssist> {
+    return (
+        await fetch(
+            `${urlAssist}/${assistant_id}`,
+            postBearer(
+                {
+                    headers: headersBeta,
+                    apikey,
+                    method: 'DELETE',
+                }
+            )
+        )
+    ).json()
+}
+
 
 export async function gptAssistAddVS(assistant_id: string, assist: OpenAIAssistReq, apikey: string): Promise<OpenAIAssist> {
     return (
