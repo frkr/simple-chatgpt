@@ -1,4 +1,5 @@
 import {fetchWithTimeout, postBearer} from '../util-js/util';
+import {AudioMsg, ChatCompletions, ChatCompletionsRequest, MessageChat, OpenAIModels, Transcription} from "./OpenAI";
 
 export const urlCompletions = 'https://api.openai.com/v1/chat/completions';
 export const urlTranscr = 'https://api.openai.com/v1/audio/transcriptions';
