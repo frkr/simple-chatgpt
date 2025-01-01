@@ -19,7 +19,7 @@ interface ChoicesEntity {
     index: number;
 }
 
-type ChatRole = 'system' | 'user' | 'assistant';
+type ChatRole = 'system' | 'developer' | 'user' | 'assistant' | 'tool'
 
 interface AudioMsg {
     model: 'tts-1' | 'tts-1-hd';
