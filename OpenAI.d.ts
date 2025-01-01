@@ -35,6 +35,8 @@ interface Transcription {
 interface MessageChat {
     role: ChatRole;
     content: string;
+    tool_call_id?: string;
+    name?: string;
 }
 
 interface ChatCompletionsResponse {

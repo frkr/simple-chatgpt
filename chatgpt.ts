@@ -1,5 +1,4 @@
 import {fetchWithTimeout, postBearer} from '../util-js/util';
-import {AudioMsg, ChatCompletions, ChatCompletionsRequest, MessageChat, OpenAIModels, Transcription} from "./OpenAI";
 
 export const urlCompletions = 'https://api.openai.com/v1/chat/completions';
 export const urlTranscr = 'https://api.openai.com/v1/audio/transcriptions';
@@ -14,6 +13,33 @@ export function gptslice(conversas: Array<MessageChat>, limit = 16384) {
         conversas.shift();
         simpleCount = JSON.stringify(conversas).length;
     }
+}
+
+export async function gptFileList(apikey: string): Promise<OpenAIFileList> {
+    return (await fetch(urlFile, postBearer({apikey}))).json()
+}
+
+export async function gptFile(file_id: string, apikey: string): Promise<OpenAIFile> {
+    return (await fetch(`${urlFile}/${file_id}`, postBearer({apikey}))).json()
+}
+
+export async function gptFileDelete(file_id: string, apikey: string): Promise<OpenAIFile> {
+    return (await fetch(`${urlFile}/${file_id}`, postBearer({apikey, method: "DELETE"}))).json()
+}
+
+export async function gptFileUpload({file, filename, purpose}: OpenAIFileReq, apikey: string): Promise<OpenAIFile> {
+
+    let forma = new FormData();
+    forma.append('file', file, filename);
+    forma.append('purpose', purpose);
+    return (await fetch(urlFile, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + apikey,
+        },
+        body: forma,
+    })).json();
+
 }
 
 export async function chat(userId: string, messages: Array<MessageChat>, apikey: string, model: OpenAIModels = 'gpt-4o-mini'): Promise<MessageChat | null> {
